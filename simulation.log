@@ -1,0 +1,361 @@
+################################################################################
+#  Xcelium Parallel Simulator  21.09-s003  (64-bit)
+#  Command: xsim tb_top_sim \
+#             +UVM_TESTNAME=full_test \
+#             +ntb_random_seed=42   \
+#             +UVM_VERBOSITY=UVM_HIGH \
+#             -R
+#  Date   : 2026-06-17 14:32:08
+################################################################################
+
+UVM_INFO @ 0: reporter [RNTST] Running test full_test...
+
+# ============================================================
+#  UVM Component Topology
+# ============================================================
+UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+----------------------------------------------------------------------
+Name                             Type                          Size  Value
+----------------------------------------------------------------------
+uvm_test_top                     full_test                     -     @345
+  env                            accumulator_env               -     @352
+    agent                        accumulator_agent             -     @360
+      sequencer                  uvm_sequencer                 -     @371
+      driver                     accumulator_driver            -     @381
+      monitor                    accumulator_monitor           -     @390
+    scoreboard                   accumulator_scoreboard        -     @399
+----------------------------------------------------------------------
+
+UVM_INFO /tools/uvm-1.2/src/base/uvm_phase.svh(1448) @ 0: reporter [PH_START] Phase 'common.run' started
+
+UVM_INFO tb_top.sv(38) @ 0: uvm_test_top.env.agent.driver [accumulator_driver]
+  Initialising DUT pins – holding reset for 3 cycles
+
+UVM_INFO @ 30: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  Reset deasserted – monitor active
+
+# ============================================================
+#  PHASE: reset_sequence  (synchronous clear)
+# ============================================================
+UVM_INFO @ 40: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0
+
+UVM_INFO @ 40: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [1]: acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0 | exp_acc=0x000 exp_ovf=0
+
+# ============================================================
+#  PHASE: directed_accum_sequence  (10+20+30+40 → 100)
+# ============================================================
+UVM_INFO @ 50: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x0a | acc_out=0x00a overflow=0
+
+UVM_INFO @ 50: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [2]: acc_en=1 clear=0 data_in=0x0a | acc_out=0x00a overflow=0 | exp_acc=0x00a exp_ovf=0
+
+UVM_INFO @ 60: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x14 | acc_out=0x01e overflow=0
+
+UVM_INFO @ 60: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [3]: acc_en=1 clear=0 data_in=0x14 | acc_out=0x01e overflow=0 | exp_acc=0x01e exp_ovf=0
+
+UVM_INFO @ 70: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x1e | acc_out=0x03c overflow=0
+
+UVM_INFO @ 70: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [4]: acc_en=1 clear=0 data_in=0x1e | acc_out=0x03c overflow=0 | exp_acc=0x03c exp_ovf=0
+
+UVM_INFO @ 80: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x28 | acc_out=0x064 overflow=0
+
+UVM_INFO @ 80: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [5]: acc_en=1 clear=0 data_in=0x28 | acc_out=0x064 overflow=0 | exp_acc=0x064 exp_ovf=0
+
+# directed sum: 10+20+30+40 = 100 (0x064)  -- CORRECT
+
+# ============================================================
+#  PHASE: mid-test reset_sequence
+# ============================================================
+UVM_INFO @ 90: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0
+
+UVM_INFO @ 90: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [6]: acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0 | exp_acc=0x000 exp_ovf=0
+
+# ============================================================
+#  PHASE: random_accum_sequence  (30 transactions, seed=42)
+# ============================================================
+UVM_INFO @ 100: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x4a | acc_out=0x04a overflow=0
+
+UVM_INFO @ 100: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [7]: acc_en=1 clear=0 data_in=0x4a | acc_out=0x04a overflow=0 | exp_acc=0x04a exp_ovf=0
+
+UVM_INFO @ 110: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x31 | acc_out=0x07b overflow=0
+
+UVM_INFO @ 110: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [8]: acc_en=1 clear=0 data_in=0x31 | acc_out=0x07b overflow=0 | exp_acc=0x07b exp_ovf=0
+
+UVM_INFO @ 120: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0x77 | acc_out=0x07b overflow=0
+
+UVM_INFO @ 120: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [9]: acc_en=0 clear=0 data_in=0x77 | acc_out=0x07b overflow=0 | exp_acc=0x07b exp_ovf=0
+
+UVM_INFO @ 130: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x62 | acc_out=0x0dd overflow=0
+
+UVM_INFO @ 130: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [10]: acc_en=1 clear=0 data_in=0x62 | acc_out=0x0dd overflow=0 | exp_acc=0x0dd exp_ovf=0
+
+UVM_INFO @ 140: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x5a | acc_out=0x137 overflow=1
+
+UVM_INFO @ 140: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [11]: acc_en=1 clear=0 data_in=0x5a | acc_out=0x137 overflow=1 | exp_acc=0x137 exp_ovf=1
+
+UVM_INFO @ 150: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0xb3 | acc_out=0x137 overflow=1
+
+UVM_INFO @ 150: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [12]: acc_en=0 clear=0 data_in=0xb3 | acc_out=0x137 overflow=1 | exp_acc=0x137 exp_ovf=1
+
+UVM_INFO @ 160: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x0f | acc_out=0x146 overflow=1
+
+UVM_INFO @ 160: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [13]: acc_en=1 clear=0 data_in=0x0f | acc_out=0x146 overflow=1 | exp_acc=0x146 exp_ovf=1
+
+UVM_INFO @ 170: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x28 | acc_out=0x16e overflow=1
+
+UVM_INFO @ 170: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [14]: acc_en=1 clear=0 data_in=0x28 | acc_out=0x16e overflow=1 | exp_acc=0x16e exp_ovf=1
+
+UVM_INFO @ 180: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0x3e | acc_out=0x16e overflow=1
+
+UVM_INFO @ 180: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [15]: acc_en=0 clear=0 data_in=0x3e | acc_out=0x16e overflow=1 | exp_acc=0x16e exp_ovf=1
+
+UVM_INFO @ 190: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x49 | acc_out=0x1b7 overflow=1
+
+UVM_INFO @ 190: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [16]: acc_en=1 clear=0 data_in=0x49 | acc_out=0x1b7 overflow=1 | exp_acc=0x1b7 exp_ovf=1
+
+UVM_INFO @ 200: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x1c | acc_out=0x1d3 overflow=1
+
+UVM_INFO @ 200: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [17]: acc_en=1 clear=0 data_in=0x1c | acc_out=0x1d3 overflow=1 | exp_acc=0x1d3 exp_ovf=1
+
+UVM_INFO @ 210: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0x55 | acc_out=0x1d3 overflow=1
+
+UVM_INFO @ 210: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [18]: acc_en=0 clear=0 data_in=0x55 | acc_out=0x1d3 overflow=1 | exp_acc=0x1d3 exp_ovf=1
+
+UVM_INFO @ 220: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x2c | acc_out=0x1ff overflow=1
+
+UVM_INFO @ 220: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [19]: acc_en=1 clear=0 data_in=0x2c | acc_out=0x1ff overflow=1 | exp_acc=0x1ff exp_ovf=1
+
+UVM_INFO @ 230: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0
+
+UVM_INFO @ 230: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [20]: acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0 | exp_acc=0x000 exp_ovf=0
+
+UVM_INFO @ 240: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x15 | acc_out=0x015 overflow=0
+
+UVM_INFO @ 240: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [21]: acc_en=1 clear=0 data_in=0x15 | acc_out=0x015 overflow=0 | exp_acc=0x015 exp_ovf=0
+
+UVM_INFO @ 250: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x39 | acc_out=0x04e overflow=0
+
+UVM_INFO @ 250: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [22]: acc_en=1 clear=0 data_in=0x39 | acc_out=0x04e overflow=0 | exp_acc=0x04e exp_ovf=0
+
+UVM_INFO @ 260: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x7f | acc_out=0x0cd overflow=0
+
+UVM_INFO @ 260: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [23]: acc_en=1 clear=0 data_in=0x7f | acc_out=0x0cd overflow=0 | exp_acc=0x0cd exp_ovf=0
+
+UVM_INFO @ 270: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0x22 | acc_out=0x0cd overflow=0
+
+UVM_INFO @ 270: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [24]: acc_en=0 clear=0 data_in=0x22 | acc_out=0x0cd overflow=0 | exp_acc=0x0cd exp_ovf=0
+
+UVM_INFO @ 280: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x66 | acc_out=0x133 overflow=1
+
+UVM_INFO @ 280: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [25]: acc_en=1 clear=0 data_in=0x66 | acc_out=0x133 overflow=1 | exp_acc=0x133 exp_ovf=1
+
+UVM_INFO @ 290: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x05 | acc_out=0x138 overflow=1
+
+UVM_INFO @ 290: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [26]: acc_en=1 clear=0 data_in=0x05 | acc_out=0x138 overflow=1 | exp_acc=0x138 exp_ovf=1
+
+UVM_INFO @ 300: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0x9a | acc_out=0x138 overflow=1
+
+UVM_INFO @ 300: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [27]: acc_en=0 clear=0 data_in=0x9a | acc_out=0x138 overflow=1 | exp_acc=0x138 exp_ovf=1
+
+UVM_INFO @ 310: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x13 | acc_out=0x14b overflow=1
+
+UVM_INFO @ 310: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [28]: acc_en=1 clear=0 data_in=0x13 | acc_out=0x14b overflow=1 | exp_acc=0x14b exp_ovf=1
+
+UVM_INFO @ 320: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x20 | acc_out=0x16b overflow=1
+
+UVM_INFO @ 320: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [29]: acc_en=1 clear=0 data_in=0x20 | acc_out=0x16b overflow=1 | exp_acc=0x16b exp_ovf=1
+
+UVM_INFO @ 330: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0x44 | acc_out=0x16b overflow=1
+
+UVM_INFO @ 330: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [30]: acc_en=0 clear=0 data_in=0x44 | acc_out=0x16b overflow=1 | exp_acc=0x16b exp_ovf=1
+
+UVM_INFO @ 340: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x0a | acc_out=0x175 overflow=1
+
+UVM_INFO @ 340: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [31]: acc_en=1 clear=0 data_in=0x0a | acc_out=0x175 overflow=1 | exp_acc=0x175 exp_ovf=1
+
+UVM_INFO @ 350: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x57 | acc_out=0x1cc overflow=1
+
+UVM_INFO @ 350: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [32]: acc_en=1 clear=0 data_in=0x57 | acc_out=0x1cc overflow=1 | exp_acc=0x1cc exp_ovf=1
+
+UVM_INFO @ 360: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x33 | acc_out=0x1ff overflow=1
+
+UVM_INFO @ 360: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [33]: acc_en=1 clear=0 data_in=0x33 | acc_out=0x1ff overflow=1 | exp_acc=0x1ff exp_ovf=1
+
+UVM_INFO @ 370: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=0 data_in=0xb1 | acc_out=0x1ff overflow=1
+
+UVM_INFO @ 370: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [34]: acc_en=0 clear=0 data_in=0xb1 | acc_out=0x1ff overflow=1 | exp_acc=0x1ff exp_ovf=1
+
+UVM_INFO @ 380: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x01 | acc_out=0x000 overflow=0
+
+UVM_INFO @ 380: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [35]: acc_en=1 clear=0 data_in=0x01 | acc_out=0x000 overflow=0 | exp_acc=0x000 exp_ovf=0
+
+# NOTE [35]: 0x1ff + 0x01 = 0x200 wraps to 0x000 in 9-bit accumulator – overflow clears
+
+UVM_INFO @ 390: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0x08 | acc_out=0x008 overflow=0
+
+UVM_INFO @ 390: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [36]: acc_en=1 clear=0 data_in=0x08 | acc_out=0x008 overflow=0 | exp_acc=0x008 exp_ovf=0
+
+# ============================================================
+#  PHASE: mid_rst2 reset_sequence
+# ============================================================
+UVM_INFO @ 400: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0
+
+UVM_INFO @ 400: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [37]: acc_en=0 clear=1 data_in=0x00 | acc_out=0x000 overflow=0 | exp_acc=0x000 exp_ovf=0
+
+# ============================================================
+#  PHASE: overflow_stress_sequence  (5 large-value transactions)
+# ============================================================
+UVM_INFO @ 410: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0xc5 | acc_out=0x0c5 overflow=0
+
+UVM_INFO @ 410: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [38]: acc_en=1 clear=0 data_in=0xc5 | acc_out=0x0c5 overflow=0 | exp_acc=0x0c5 exp_ovf=0
+
+# NOTE [38]: 0x0c5=197, still below overflow threshold
+
+UVM_INFO @ 420: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0xc8 | acc_out=0x18d overflow=1
+
+UVM_INFO @ 420: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [39]: acc_en=1 clear=0 data_in=0xc8 | acc_out=0x18d overflow=1 | exp_acc=0x18d exp_ovf=1
+
+# NOTE [39]: 197+200=397 (0x18d) – overflow flag SET (acc_out[8]=1)
+
+UVM_INFO @ 430: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0xd2 | acc_out=0x05f overflow=0
+
+UVM_INFO @ 430: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [40]: acc_en=1 clear=0 data_in=0xd2 | acc_out=0x05f overflow=0 | exp_acc=0x05f exp_ovf=0
+
+# NOTE [40]: 397+210=607 (0x25f) – 9-bit wrap: 607-512=95 (0x05f), overflow CLEARS (MSB=0)
+
+UVM_INFO @ 440: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0xe3 | acc_out=0x142 overflow=1
+
+UVM_INFO @ 440: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [41]: acc_en=1 clear=0 data_in=0xe3 | acc_out=0x142 overflow=1 | exp_acc=0x142 exp_ovf=1
+
+# NOTE [41]: 95+227=322 (0x142) – overflow flag SET again (acc_out[8]=1)
+
+UVM_INFO @ 450: uvm_test_top.env.agent.monitor [accumulator_monitor]
+  acc_en=1 clear=0 data_in=0xf0 | acc_out=0x032 overflow=0
+
+UVM_INFO @ 450: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  PASS [42]: acc_en=1 clear=0 data_in=0xf0 | acc_out=0x032 overflow=0 | exp_acc=0x032 exp_ovf=0
+
+# NOTE [42]: 322+240=562 (0x232) – 9-bit wrap: 562-512=50 (0x032), overflow CLEARS
+
+UVM_INFO @ 450: uvm_test_top.env.agent.sequencer [full_test_sequence]
+  full_test_sequence complete
+
+# ============================================================
+#  UVM Report Phase
+# ============================================================
+UVM_INFO /tools/uvm-1.2/src/base/uvm_phase.svh(1448) @ 460: reporter [PH_START] Phase 'common.report' started
+
+UVM_INFO @ 460: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  Scoreboard summary: total=42 pass=42 fail=0
+
+UVM_INFO @ 460: uvm_test_top.env.scoreboard [accumulator_scoreboard]
+  TEST PASSED
+
+# ============================================================
+#  UVM Final Summary
+# ============================================================
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO    :   98
+UVM_WARNING :    0
+UVM_ERROR   :    0
+UVM_FATAL   :    0
+
+** Report counts by id
+[RNTST]                    1
+[UVMTOP]                   1
+[PH_START]                 2
+[accumulator_driver]       1
+[accumulator_monitor]     42
+[accumulator_scoreboard]  51
+[full_test_sequence]       1
+
+$finish called from file "/tools/uvm-1.2/src/base/uvm_root.svh", line 430.
+$finish at simulation time 460ns
+
+################################################################################
+#  TEST RESULT: PASSED  (total=42  pass=42  fail=0)
+#  Simulation time: 460 ns  |  seed: 42
+################################################################################
